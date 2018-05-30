@@ -64,4 +64,11 @@ public class SellerService {
         return sellerRepository.save(seller);
     }
 
+    public void deactivateSeller(Long id){
+        logger.debug("Deactivating Seller "+id);
+        Seller seller = getSellerById(id);
+        seller.setActive(false);
+        updateSeller(seller);
+    }
+
 }

@@ -57,4 +57,10 @@ public class OrderService {
         }
         return orderRepository.save(order);
     }
+
+    public void deactivateOrder(Long id){
+        Order order = getOrderById(id);
+        order.setActive(false);
+        updateOrder(order);
+    }
 }

@@ -64,4 +64,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public void deactivateUser(Long id){
+        logger.debug("Deactivating User "+id);
+        User user = getUserById(id);
+        user.setActive(false);
+        updateUser(user);
+    }
+
 }

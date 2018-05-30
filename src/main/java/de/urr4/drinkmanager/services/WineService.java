@@ -64,4 +64,11 @@ public class WineService {
         return wineRepository.save(wine);
 	}
 
+	public void deactivateWine(Long id){
+		logger.debug("Deactivating Wine "+id);
+		Wine wine = getWineById(id);
+		wine.setActive(false);
+		updateWine(wine);
+	}
+
 }
