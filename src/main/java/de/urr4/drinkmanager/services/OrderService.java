@@ -27,6 +27,7 @@ public class OrderService {
         orderRepository.findAll().forEach(
                 order -> orders.add(order)
         );
+        logger.debug("Found "+orders.size()+" Orders");
         return orders;
     }
 
@@ -34,6 +35,7 @@ public class OrderService {
         logger.debug("Getting order "+id);
         Optional<Order> order = orderRepository.findById(id);
         if(order.isPresent()){
+            logger.debug("Found Order for "+order.get().getFullPrice()+"€");
             return order.get();
         }else{
             logger.error("Order "+id+" does not exist");
@@ -48,6 +50,7 @@ public class OrderService {
             throw new DrinkManagerException(ExceptionType.TECHNICAL);
         }
         orderRepository.save(order);
+        logger.debug("Added Order "+order.getId());
     }
 
     public Order updateOrder(Order order){
@@ -55,12 +58,15 @@ public class OrderService {
             logger.error("Order for "+order.getSeller().getName()+" does not exist");
             throw new DrinkManagerException(ExceptionType.TECHNICAL);
         }
-        return orderRepository.save(order);
+        Order updatedOrder = orderRepository.save(order);
+        logger.debug("Updated Order "+order.getId());
+        return updatedOrder;
     }
 
     public void deactivateOrder(Long id){
         Order order = getOrderById(id);
         order.setActive(false);
         updateOrder(order);
+        logger.debug("Deactivated Order "+order.getId());
     }
 }

@@ -1,0 +1,13 @@
+    XXXXXXXXXXXXXXXXXXXXXXXX
+               _
+              {_}
+              |_|
+              |_|
+             /. .\
+            |-----|
+            | XXX |
+            | XXX |
+            |-----|
+            |_..._|
+
+    XXXXXXXXXXXXXXXXXXXXXXXX

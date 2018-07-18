@@ -3,16 +3,21 @@ package de.urr4.drinkmanager.resources;
 import java.util.List;
 
 import de.urr4.drinkmanager.services.WineService;
+import de.urr4.wine.entities.User;
 import de.urr4.wine.entities.Wine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping(path = "/wines")
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping(path = "/drinkmanager/wines")
 public class WineResource {
 
     @Autowired
@@ -27,7 +32,7 @@ public class WineResource {
     }
 
     @RequestMapping(path="/{id}", method = RequestMethod.GET)
-    public Wine getAllWines(@PathVariable("id") Long id){
+    public Wine getWineById(@PathVariable("id") Long id){
         logger.info("Loading Wine with id "+id);
         return wineService.getWineById(id);
     }
@@ -48,5 +53,11 @@ public class WineResource {
     public void deactivateWine(@PathVariable("id") Long id){
         logger.info("Deactivating Wine with id "+id);
         wineService.deactivateWine(id);
+    }
+
+    @RequestMapping(path = "/{id}/users", method = RequestMethod.GET)
+    public List<User> getUserLikingWine(@PathVariable("id") Long id){
+        logger.info("Getting Users liking Wine "+id);
+        return wineService.getUsersLikingWine(id);
     }
 }

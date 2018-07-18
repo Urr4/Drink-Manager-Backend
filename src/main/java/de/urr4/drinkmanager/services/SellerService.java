@@ -27,6 +27,7 @@ public class SellerService {
         sellerRepository.findAll().forEach(
                 seller -> sellers.add(seller)
         );
+        logger.debug("Found "+sellers.size()+" Sellers");
         return sellers;
     }
 
@@ -34,6 +35,7 @@ public class SellerService {
         logger.debug("Getting Seller "+id);
         Optional<Seller> seller = sellerRepository.findById(id);
         if(seller.isPresent()){
+            logger.debug("Found Seller "+seller.get().getName());
             return seller.get();
         }else{
             logger.error("Seller "+id+" doe not exist");
@@ -43,7 +45,9 @@ public class SellerService {
 
     public List<Seller> getSellersByName(String name){
         logger.debug("Getting Sellers named "+name);
-        return sellerRepository.getSellersByName(name);
+        List<Seller> sellers = sellerRepository.getSellersByName(name);
+        logger.debug("Found "+sellers.size()+" Sellers");
+        return sellers;
     }
 
     public void addSeller(Seller seller){
@@ -53,6 +57,7 @@ public class SellerService {
             throw new DrinkManagerException(ExceptionType.TECHNICAL);
         }
         sellerRepository.save(seller);
+        logger.debug("Added Seller "+seller.getId());
     }
 
     public Seller updateSeller(Seller seller){
@@ -61,7 +66,9 @@ public class SellerService {
             logger.error("Seller "+seller.getName()+" does not exists");
             throw new DrinkManagerException(ExceptionType.TECHNICAL);
         }
-        return sellerRepository.save(seller);
+        Seller updatedSeller = sellerRepository.save(seller);
+        logger.debug("Updated Seller "+seller.getId());
+        return updatedSeller;
     }
 
     public void deactivateSeller(Long id){
@@ -69,6 +76,7 @@ public class SellerService {
         Seller seller = getSellerById(id);
         seller.setActive(false);
         updateSeller(seller);
+        logger.debug("Deactivated Seller "+seller.getId());
     }
 
 }

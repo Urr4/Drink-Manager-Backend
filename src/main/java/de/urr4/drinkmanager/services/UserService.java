@@ -27,6 +27,7 @@ public class UserService {
         userRepository.findAll().forEach(
                 user -> users.add(user)
         );
+        logger.debug("Found "+users.size()+" Users");
         return users;
     }
 
@@ -34,6 +35,7 @@ public class UserService {
         logger.debug("Getting User by id "+id);
         Optional<User> user = userRepository.findById(id);
         if(user.isPresent()){
+            logger.debug("Found "+user.get().getName());
             return user.get();
         }else{
             logger.error("User "+id+" does not exists");
@@ -43,7 +45,9 @@ public class UserService {
 
     public List<User> getUsersByName(String name){
         logger.debug("Getting Users named "+name);
-        return userRepository.getUsersByName(name);
+        List<User> users = userRepository.getUsersByName(name);
+        logger.debug("Found "+users.size()+" Users");
+        return users;
     }
 
     public void addUser(User user){
@@ -53,6 +57,7 @@ public class UserService {
             throw new DrinkManagerException(ExceptionType.TECHNICAL);
         }
         userRepository.save(user);
+        logger.debug("Added User "+user.getId());
     }
 
     public User updateUser(User user){
@@ -61,7 +66,9 @@ public class UserService {
             logger.error("User "+user.getId()+" already exists");
             throw new DrinkManagerException(ExceptionType.TECHNICAL);
         }
-        return userRepository.save(user);
+        User updatedUser = userRepository.save(user);
+        logger.debug("Updated User "+updatedUser.getId());
+        return updatedUser;
     }
 
     public void deactivateUser(Long id){
@@ -69,6 +76,7 @@ public class UserService {
         User user = getUserById(id);
         user.setActive(false);
         updateUser(user);
+        logger.debug("Deactivated User "+user.getId());
     }
 
 }
