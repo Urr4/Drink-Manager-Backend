@@ -2,9 +2,6 @@ package de.urr4.drinkmanager.resources;
 
 import java.util.List;
 
-import de.urr4.drinkmanager.services.WineService;
-import de.urr4.wine.entities.User;
-import de.urr4.wine.entities.Wine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import de.urr4.drinkmanager.services.WineService;
+import de.urr4.wine.entities.User;
+import de.urr4.wine.entities.Wine;
 
 
 @RestController
