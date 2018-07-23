@@ -15,43 +15,49 @@ import org.springframework.web.bind.annotation.RestController;
 
 import de.urr4.drinkmanager.services.OrderService;
 
+
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3001")
 @RequestMapping(path = "/drinkmanager/orders")
 public class OrderResource {
 
-    @Autowired
-    private OrderService orderService;
+	@Autowired
+	private OrderService orderService;
 
-    private Logger logger = LoggerFactory.getLogger(OrderResource.class);
+	private Logger logger = LoggerFactory.getLogger(OrderResource.class);
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Order> getAllOrders(){
-        logger.info("Loading all Orders");
-        return orderService.getAllOrders();
-    }
 
-    @RequestMapping(path="/{id}", method = RequestMethod.GET)
-    public Order getOrderById(@PathVariable("id") Long id){
-        logger.info("Loading Order with id "+id);
-        return orderService.getOrderById(id);
-    }
+	@RequestMapping(method = RequestMethod.GET)
+	public List<Order> getAllOrders() {
+		logger.info("Loading all Orders");
+		return orderService.getAllOrders();
+	}
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public Order updateOrder(@RequestBody Order order){
-        logger.info("Updating Order "+order);
-        return orderService.updateOrder(order);
-    }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public void saveOrder(@RequestBody Order order){
-        logger.info("Creating Order "+order);
-        orderService.addOrder(order);
-    }
+	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
+	public Order getOrderById(@PathVariable("id") Long id) {
+		logger.info("Loading Order with id " + id);
+		return orderService.getOrderById(id);
+	}
 
-    @RequestMapping(path="/{id}", method = RequestMethod.DELETE)
-    public void deactivateOrder(@PathVariable("id") Long id){
-        logger.info("Deactivating Order with id "+id);
-        orderService.deactivateOrder(id);
-    }
+
+	@RequestMapping(method = RequestMethod.PUT)
+	public Order updateOrder(@RequestBody Order order) {
+		logger.info("Updating Order " + order);
+		return orderService.updateOrder(order);
+	}
+
+
+	@RequestMapping(method = RequestMethod.POST)
+	public void saveOrder(@RequestBody Order order) {
+		logger.info("Creating Order " + order);
+		orderService.addOrder(order);
+	}
+
+
+	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+	public void deactivateOrder(@PathVariable("id") Long id) {
+		logger.info("Deactivating Order with id " + id);
+		orderService.deactivateOrder(id);
+	}
 }

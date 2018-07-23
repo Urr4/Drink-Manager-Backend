@@ -17,43 +17,49 @@ import org.springframework.web.bind.annotation.RestController;
 import de.urr4.drinkmanager.services.WineService;
 import de.urr4.wine.entities.Wine;
 
+
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3001")
 @RequestMapping(path = "/drinkmanager/sellers")
 public class SellerResource {
 
-    @Autowired
-    private SellerService sellerService;
+	@Autowired
+	private SellerService sellerService;
 
-    private Logger logger = LoggerFactory.getLogger(SellerResource.class);
+	private Logger logger = LoggerFactory.getLogger(SellerResource.class);
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Seller> getAllSellers(){
-        logger.info("Loading all Seller");
-        return sellerService.getAllSellers();
-    }
 
-    @RequestMapping(path="/{id}", method = RequestMethod.GET)
-    public Seller getSellerById(@PathVariable("id") Long id){
-        logger.info("Loading Seller with id "+id);
-        return sellerService.getSellerById(id);
-    }
+	@RequestMapping(method = RequestMethod.GET)
+	public List<Seller> getAllSellers() {
+		logger.info("Loading all Seller");
+		return sellerService.getAllSellers();
+	}
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public Seller updateSeller(@RequestBody Seller seller){
-        logger.info("Updating Seller "+seller);
-        return sellerService.updateSeller(seller);
-    }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public void saveSeller(@RequestBody Seller seller){
-        logger.info("Creating Seller "+seller);
-        sellerService.addSeller(seller);
-    }
+	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
+	public Seller getSellerById(@PathVariable("id") Long id) {
+		logger.info("Loading Seller with id " + id);
+		return sellerService.getSellerById(id);
+	}
 
-    @RequestMapping(path="/{id}", method = RequestMethod.DELETE)
-    public void deactivateSeller(@PathVariable("id") Long id){
-        logger.info("Deactivating Seller with id "+id);
-        sellerService.deactivateSeller(id);
-    }
+
+	@RequestMapping(method = RequestMethod.PUT)
+	public Seller updateSeller(@RequestBody Seller seller) {
+		logger.info("Updating Seller " + seller);
+		return sellerService.updateSeller(seller);
+	}
+
+
+	@RequestMapping(method = RequestMethod.POST)
+	public void saveSeller(@RequestBody Seller seller) {
+		logger.info("Creating Seller " + seller);
+		sellerService.addSeller(seller);
+	}
+
+
+	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+	public void deactivateSeller(@PathVariable("id") Long id) {
+		logger.info("Deactivating Seller with id " + id);
+		sellerService.deactivateSeller(id);
+	}
 }
